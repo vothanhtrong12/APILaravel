@@ -26,7 +26,10 @@ class UserController extends Controller
         if($check==true){
             $check =UserRole::where('name',$newUsRole)->get();
             if($check==0){
-
+                $UserRole = new UserRole;
+                $name=$newUsRole;
+                $UserRole->save();
+                return response()->json(['check'=>200]);
             }else{
                 return response()->json(['check'=>400,'message'=>'exist']);
             }
