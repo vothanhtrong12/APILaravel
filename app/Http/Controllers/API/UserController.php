@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Mail;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends Controller
 {
-
+    public function AllRole(){
+        $result = DB::Table('userrole')->get();
+        return response()->json($result);
+    }
+    // ============================================================
     public function addUserRole(){
         $newUsRole= $_POST['newUsRole'];
         $check=false;
