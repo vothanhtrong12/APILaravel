@@ -12,23 +12,19 @@ use Illuminate\Support\Facades\Mail;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends Controller
 {
-    Private function checkValidate($item){
-        if(preg_match('/Select|select|SELECT/', $username)||preg_match('/Update|update|UPDATE/', $username)||preg_match('/DELETE|Delete|delete/', $username)){
-            return false;
-        }else{
-            return true;
-        }
-    }
 
     public function addUserRole(){
         $newUsRole= $_POST['newUsRole'];
-        $check = checkValidate($newUsRole);
+        $check=false;
+        if(preg_match('/Select|select|SELECT/', $newUsRole)||preg_match('/Update|update|UPDATE/', $newUsRole)||preg_match('/DELETE|Delete|delete/', $newUsRole)){
+            $check= false;
+        }else{
+            $check= true;
+        }
         if($check==true){
-            $check =UserRole::where('name',$newUsRole)->get();
+            $check =UserRole::where('name',$newUsRole)->count();
             if($check==0){
-                $UserRole = new UserRole;
-                $name=$newUsRole;
-                $UserRole->save();
+                DB::Table('userrole')->insert(['name'=>$newUsRole,'created_at'=>now()]);
                 return response()->json(['check'=>200]);
             }else{
                 return response()->json(['check'=>400,'message'=>'exist']);
