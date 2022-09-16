@@ -67,7 +67,7 @@ class UserController extends Controller
         $result =User::all();
         $arr=[];
         foreach ($result as  $value) {
-            $arr1=['idUser'=>$value['id'],'username'=>$value['username'],'fullName'=>$value['fullName'],'email'=>$value['email'],'created_at'=>$value['created_at'],'email_verified_at'=>$value['email_verified_at'],'ggId'=>$value['ggId'],'image'=>$value['image']];
+            $arr1=['idUser'=>$value['id'],'username'=>$value['username'],'fullName'=>$value['fullName'],'email'=>$value['email'],'created_at'=>$value['created_at'],'email_verified_at'=>$value['email_verified_at'],'ggId'=>$value['ggId'],'status'=>$value['status'],'image'=>$value['image']];
             array_push($arr,$arr1);
             $arr1=[];
         }
