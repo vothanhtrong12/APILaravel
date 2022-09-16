@@ -23,9 +23,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->text('ggId')->nullable();
+            $table->integer('idRole',false,false);
             $table->integer('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('idRole')->references('id')->on('userRole');
         });
     }
 
