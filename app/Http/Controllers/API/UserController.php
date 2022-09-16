@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,12 @@ class UserController extends Controller
         $newUsRole= $_POST['newUsRole'];
         $check = checkValidate($newUsRole);
         if($check==true){
-            $check =
+            $check =UserRole::where('name',$newUsRole)->get();
+            if($check==0){
+
+            }else{
+                return response()->json(['check'=>400,'message'=>'exist']);
+            }
         }else{
             return response()->json(['check'=>401,'message'=>'Rejected']);
         }
