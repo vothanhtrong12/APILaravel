@@ -11,6 +11,23 @@ use Illuminate\Support\Facades\Mail;
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 class UserController extends Controller
 {
+    Private function checkValidate($item){
+        if(preg_match('/Select|select|SELECT/', $username)||preg_match('/Update|update|UPDATE/', $username)||preg_match('/DELETE|Delete|delete/', $username)){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public function addUserRole(){
+        $newUsRole= $_POST['newUsRole'];
+        $check = checkValidate($newUsRole);
+        if($check==true){
+            $check =
+        }else{
+            return response()->json(['check'=>401,'message'=>'Rejected']);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
