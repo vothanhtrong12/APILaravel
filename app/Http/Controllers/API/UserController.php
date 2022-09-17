@@ -46,6 +46,7 @@ class UserController extends Controller
     {
         $username= $_POST['username'];
         $email= $_POST['email'];
+        $userRole=$request->userRole;
         // ==========================================================================================
         if(preg_match('/Select|select|SELECT/', $username)||preg_match('/Update|update|UPDATE/', $username)||preg_match('/DELETE|Delete|delete/', $username)){
             return response()->json(['check'=>401,'message'=>'Rejected']);
@@ -61,7 +62,7 @@ class UserController extends Controller
             if($check!=0){
                 return response()->json(['check'=>403,'message'=>'exist']);
             }else{
-                DB::Table('users')->insert(['username'=>$username,'password'=>$password1,'email'=>$email,'created_at'=>now()]);
+                DB::Table('users')->insert(['username'=>$username,'password'=>$password1,'email'=>$email,'idRole'=>$userRole,'created_at'=>now()]);
                 $details = [
                     'title' => 'Email thông báo tài khoản',
                     'username'=> $username,
@@ -90,14 +91,8 @@ class UserController extends Controller
      */
     public function allUser()
     {
-        $result =User::all();
-        $arr=[];
-        foreach ($result as  $value) {
-            $arr1=['idUser'=>$value['id'],'username'=>$value['username'],'fullName'=>$value['fullName'],'email'=>$value['email'],'created_at'=>$value['created_at'],'email_verified_at'=>$value['email_verified_at'],'ggId'=>$value['ggId'],'status'=>$value['status'],'image'=>$value['image']];
-            array_push($arr,$arr1);
-            $arr1=[];
-        }
-        return response()->json($arr);
+        $result =DB::Table('users')->join('userrole','users.idRole','=','userrole.id')->get();
+        return response()->json($result);
     }
 
     /**

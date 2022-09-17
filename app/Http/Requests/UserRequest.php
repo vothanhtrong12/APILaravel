@@ -32,8 +32,8 @@ class UserRequest extends FormRequest
         return [
 
             'email' => 'required|max:255|min:9|regex:/(.+)@(.+)\.(com)/i',
-
             'username' => 'required|min:5|max:40',
+            'userRole'=>'required|integer'
 
         ];
 
@@ -69,7 +69,8 @@ class UserRequest extends FormRequest
             'username.required' => 'Thiếu Username',
             'username.min'=>'Username quá ngắn',
             'username.max'=>'Username quá daif',
-
+            'userRole.required'=>'Thiếu dữ liệu userRole',
+            'userRole.integer'=>'Loại tài khoản phải là số',
         ];
 
     }
